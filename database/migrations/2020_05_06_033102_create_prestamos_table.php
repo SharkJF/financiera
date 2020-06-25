@@ -16,17 +16,17 @@ class CreatePrestamosTable extends Migration
         Schema::create('prestamos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('client_id');
-            $table->double('cantidad');
-            $table->integer('NumPagos');
-            $table->double('cuota');
-            $table->double('total');
-            $table->date('fMinistración');
-            $table->date('fVencimiento');
-
-            $table->foreign('cliente_id')
-            ->references('clients')
-            ->on('clients');
+            $table->decimal('amount');
+            $table->integer('payments_number');
+            $table->decimal('fee');
+            $table->date('ministry_date');
+            $table->date('due_date');
+            $table->tinyinteger('finished');
             $table->timestamps();
+
+            $table->foreign('client_id')
+            ->references('id')
+            ->on('clients');
         });
     }
 

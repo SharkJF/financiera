@@ -15,18 +15,23 @@ class CreatePagosRealizadosTable extends Migration
     {
         Schema::create('pagos_realizados', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('prestamo_id');
             $table->unsignedBigInteger('client_id');
-            $table->unsignedBigInteger('prestamos_id');
-            $table->double('cantidad');
+            $table->integer('number');  
+            $table->decimal('amount'); 
+            $table->date('payment_date');  
+            $table->date('receipt_date')->nullable(); 
+            $table->decimal('received_amount')->nullable();
+            $table->boolean('paid')->default(0);
+            $table->timestamps();
             
             $table->foreign('client_id')
             ->references('id')
-            ->on('clients');
+            ->on('clients');            
 
-            $table->foreign('prestamos_id')
+            $table->foreign('prestamo_id')
             ->references('id')
             ->on('prestamos');
-            $table->timestamps();
         });
     }
 
